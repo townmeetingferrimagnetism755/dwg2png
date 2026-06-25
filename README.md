@@ -124,11 +124,3 @@ Run against 11 real DWG 2018 (AC1032) construction/survey files
 - **Lineweights** render as hairlines (constant ~1 px).
 - **Per-viewport UCS / layer freeze** not applied; a viewport aimed at an empty
   model region renders empty (correct, but sparse).
-
-## Risk notes (production)
-
-`acadrust` is **~v0.4, single-maintainer, early-stage** &mdash; pinned to an exact
-version here. For production: vendor/fork it, keep the `parse` adapter boundary
-so it can be swapped, run a DWG corpus regression suite, and keep parsing in a
-sandboxed worker (this binary already wraps parse and render in `catch_unwind`).
-License is **MPL-2.0** (file-level copyleft) &mdash; fine for a closed SaaS backend.
