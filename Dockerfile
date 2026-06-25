@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 
 # ---- runtime stage ----
 FROM debian:bookworm-slim
-# DejaVu Sans covers Latin + Cyrillic (Russian CAD labels render correctly).
+# DejaVu Sans covers Latin + Cyrillic glyphs used in CAD labels.
 RUN apt-get update \
  && apt-get install -y --no-install-recommends fonts-dejavu-core \
  && rm -rf /var/lib/apt/lists/*

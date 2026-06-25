@@ -142,7 +142,7 @@ pub fn strip_mtext(raw: &str) -> String {
                     Some('{') => { out.push('{'); chars.next(); }
                     Some('}') => { out.push('}'); chars.next(); }
                     // formatting group like \fArial|b0|...; or \H2.5x; or \C1; -> skip to ';'
-                    Some(f) if "fFhHcCtTqQwWaApАkKlLoO".contains(f) => {
+                    Some(f) if "fFhHcCtTqQwWaApkKlLoO".contains(f) => {
                         chars.next();
                         for d in chars.by_ref() {
                             if d == ';' {

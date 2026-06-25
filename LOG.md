@@ -50,5 +50,5 @@ downscale on input, so raster resolution alone can't make all labels legible.
 - **Report:** toggleable inline-SVG text overlay (crisp at any zoom) + tile grids.
 
 **Verification:** PASS. Full batch at `--size 5000 --tiles`: 11/11 files,
-23 pages, 216 tiles, **128,410 position-referenced labels** (e.g. pipe specs
-`кжсТ2 45х3,0(125)-1-ппу-ПЭ` legible in tiles). 8 unit tests pass, 0 warnings.
+23 pages, 216 tiles, **128,410 position-referenced labels** (pipe-spec labels
+legible in tiles). 8 unit tests pass, 0 warnings.

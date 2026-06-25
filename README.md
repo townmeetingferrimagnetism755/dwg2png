@@ -170,7 +170,7 @@ position, scale, and twist, clipped to the viewport rectangle.
 ## Verified on real data
 
 Run against 11 real DWG 2018 (AC1032) construction/survey files
-(`Шумерля` heat-network as-builts), 4&ndash;46 MB:
+(heat-network as-builts), 4&ndash;46 MB:
 
 - **11/11 parsed, 23 pages rendered, 0 crashes.**
 - Parse 33&ndash;85 ms for typical files; the 46 MB file in ~20 s.
