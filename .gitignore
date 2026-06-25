@@ -1,0 +1,12 @@
+# Rust build artifacts
+/target
+/probe/target
+**/target
+
+# Generated output (renders, tiles, label JSON, reports)
+/out
+/out_*
+
+# OS / editor
+.DS_Store
+*.swp
