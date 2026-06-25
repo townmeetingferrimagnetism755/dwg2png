@@ -1,0 +1,25 @@
+# dwg2png as a one-shot conversion service for a RAG ingestion pipeline.
+#
+#   mkdir -p input output && cp *.dwg input/
+#   docker compose run --rm dwg2png            # uses the default command below
+#   docker compose run --rm dwg2png /work/input/file.dwg --out /work/output --size 6000 --tiles
+#
+# Output under ./output: img/ (page PNGs), tiles/ (readable crops), labels/
+# (position-referenced text layer), json/ (per-file index), report.html.
+
+services:
+  dwg2png:
+    build: .
+    image: dwg2png:latest
+    volumes:
+      - ./input:/work/input:ro
+      - ./output:/work/output
+    # Convert every DWG under input/ into high-res pages + tiles + text layer.
+    command:
+      ["/work/input", "--out", "/work/output", "--size", "6000", "--tiles", "--no-compare"]
+    # 4 GB tolerates worst-case ~50 MB drawings (parse-bound). Normal DWGs
+    # (<=5 MB) need ~1 GB; see MEASUREMENTS.md.
+    deploy:
+      resources:
+        limits:
+          memory: 4g

@@ -1,0 +1,7 @@
+/target
+/probe/target
+/out
+/out_*
+/.git
+/.github
+*.md

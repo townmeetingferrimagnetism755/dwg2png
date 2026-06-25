@@ -66,6 +66,75 @@ complementary channels solve this:
 The report's "Toggle text layer" button overlays the text as crisp vector SVG
 that stays sharp at any zoom.
 
+## Run in Docker
+
+A minimal container (Debian slim + the stripped binary + DejaVu Sans for
+Latin/Cyrillic) is provided. No GPU, no C libraries, no external CAD engine.
+
+```sh
+docker build -t dwg2png:latest .
+
+# one-shot conversion of a mounted folder
+docker run --rm -v "$PWD/input:/work/input:ro" -v "$PWD/output:/work/output" \
+  dwg2png:latest /work/input --out /work/output --size 6000 --tiles --no-compare
+```
+
+Or via Compose (mounts `./input` and `./output`):
+
+```sh
+mkdir -p input output && cp *.dwg input/
+docker compose run --rm dwg2png
+```
+
+The font is set via `DWG2PNG_FONT` in the image; override with `--font` or a bind
+mount to use a different typeface.
+
+## Requirements & performance
+
+Measured in-container on real DWG 2018 files (full numbers in
+[`MEASUREMENTS.md`](MEASUREMENTS.md)):
+
+| | |
+|---|---|
+| Image size | **81 MB** (2.3 MB binary + slim base + font) |
+| Typical file (≤1 MB, 3 pages) | **~1–2 s**, **200–450 MB** RAM |
+| Worst case (46 MB drawing) | ~27 s, **~2.8 GB** RAM (parse-bound) |
+| Recommended memory limit | **1 GB** normal DWGs · **4 GB** if large site plans possible |
+| CPU | 1 core per file; scale out with replicas (one DWG per run) |
+
+Memory tracks **DWG size**, not render resolution — the parser holds the model
+in memory. Gate very large uploads or route them to a high-memory queue.
+
+## Use in RAG chains
+
+dwg2png turns an opaque binary DWG into retrievable, citable artifacts. Run the
+container as an ingestion step, then index its output:
+
+```
+DWG ──[dwg2png container]──▶  labels/*.json   (exact text + pixel bbox + page + layer)
+                              json/*.json     (per-file index: layers, blocks, attributes)
+                              tiles/*.png      (~1500px readable crops for VLM input)
+                              img/*.png        (full-page previews)
+```
+
+Two retrieval channels, both grounded:
+
+- **Text RAG (no OCR).** Each entry in `labels/*.json` is an exact string with a
+  pixel `x,y,w,h`, `page`, `layer`, and `color`. Embed labels (individually or
+  grouped by proximity/layer) and store the geometry as metadata. Retrieval is
+  lossless and every answer can cite the precise label location. The per-file
+  `json/*.json` adds title-block attributes (e.g. cadastral numbers, areas) and
+  the block/layer inventory as structured fields.
+- **Multimodal RAG.** Embed `tiles/*.png` (image embeddings) for visual queries;
+  each tile's `tiles.json` carries the labels inside that crop, so a retrieved
+  tile arrives with its text already extracted — feed both to a VLM.
+
+Why it fits RAG: the text is 100% accurate (straight from the DWG, no OCR drift),
+positionally grounded for citations, multimodal, deterministic, and fully
+offline. A practical chunking strategy: one chunk per label cluster (same layer,
+nearby bbox) with `{file, page, layer, bbox}` metadata; link clusters to their
+tile image for multimodal answers.
+
 ## Architecture (boundaries)
 
 ```
