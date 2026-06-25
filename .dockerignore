@@ -4,4 +4,5 @@
 /out_*
 /.git
 /.github
+/skill
 *.md
