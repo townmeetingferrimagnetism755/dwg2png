@@ -1,6 +1,6 @@
 # dwg2png Skill
 
-> **Install:** `npx skills add diskd-ai/dwg2png/skill` | [skills.sh](https://skills.sh)
+> **Install:** `npx skills add https://github.com/diskd-ai/dwg2png --skill dwg2png` | [skills.sh](https://skills.sh)
 >
 > Ships in the [`diskd-ai/dwg2png`](https://github.com/diskd-ai/dwg2png) tool repo under `skill/`.
 
